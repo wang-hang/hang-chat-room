@@ -41,3 +41,15 @@ export function formatDate(timeStr: string) {
 
   return `${Y}-${M}-${D} ${h}:${m}:${s}`
 }
+
+// 将对象转换成url参数
+export function normalizeParam(obj: any) {
+  let str = '?'
+  for(const key in obj) {
+    str += `${key}=${obj[key]}&`
+  }
+  if(str[str.length - 1] === '&') {
+    str.slice(str.length - 1)
+  }
+  return str
+}

@@ -5,9 +5,9 @@ import InputArea from './components/input-area'
 import Guide from './components/guide'
 
 import { Complex, User } from './interfaces'
-import { sendMsg, receiveMsg, receiveTip, enterRoom  } from './api'
+import { sendMsg, receiveMsg, receiveTip, enterRoom, login  } from './api'
 import style from './App.css';
-import { rndColor, storeUser, getUser, hasUser, isSelf } from './utils'
+import { rndColor, getUser, hasUser, isSelf, storeUser } from './utils'
 
 interface State {
   complex: Complex[]
@@ -26,8 +26,6 @@ class App extends React.Component<any, State> {
   }
 
   public componentDidMount = () => {
-    this.onReceiveMsg()
-    this.onReceiveTip()
     if(hasUser()) {
       const user = getUser()
       this.setState({
@@ -77,9 +75,18 @@ class App extends React.Component<any, State> {
       name,
       avatar: rndColor(),
     }
-    this.setState({self: user, showGuide: false})
-    storeUser(user)
-    enterRoom(user)
+    login(user.name).then(({hasSameUser}) => {
+      if(hasSameUser) {
+        alert('你的名字有人用了 换个名字 傻屌')
+      }else {
+        this.onReceiveMsg()
+        this.onReceiveTip()
+        this.setState({self: user, showGuide: false})
+        storeUser(user)
+        enterRoom(user)
+      }
+    })
+
   }
 
   public render() {

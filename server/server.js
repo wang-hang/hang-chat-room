@@ -6,25 +6,22 @@ const io = require('socket.io')(http, {serveClient: false})
 const PORT = 3001
 const ENTER_ROOM = 'ENTER_ROOM'
 const EXIT_ROOM = 'EXIT_ROOM'
-const SEND_MSG_TO_CLIENT = 'SEND_MSG_TO_CLIENT'
-const RECEIVE_MSG_FROM_CLIENT = 'RECEIVE_MSG_FROM_CLIENT'
 const CHAT = 'CHAT'
+let userStore = {} // 保存在线的user
 
 io.on('connection', function(socket) {
-  console.log('an user connected')
-
   // 监听断开事件
   socket.on('disconnect', function() {
     if(socket.user) {
-      console.log(`${socket.user.name} has disconnected`)
+      const {user} = socket
+      console.log(`${user.name} has disconnected`)
       socket.broadcast.emit(EXIT_ROOM, {
-        name: socket.user.name,
+        name: user.name,
         time: new Date(),
         enter: false,
       })
-      console.log(`============ ${socket.user.name} exited room ==============`)
-    }else {
-      console.log(`an user has disconnected`)
+      delete userStore[user.name]
+      console.log(`============ ${user.name} exited room ==============`)
     }
   })
 
@@ -41,8 +38,6 @@ io.on('connection', function(socket) {
 
   // 监听客户端的发送消息事件
   socket.on(CHAT, function(msg) {
-    console.log(socket.user)
-    // console.log(`${socket.user.name} say:  ${msg}`)
     io.emit(CHAT, {
       content: msg,
       user:socket.user,
@@ -50,7 +45,22 @@ io.on('connection', function(socket) {
     })
   })
 
+})
 
+app.get('*', function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', "*")
+  next()
+})
+
+app.get('/login', function(req,res){
+  const { user } = req.query
+  console.log(`${user} is loging`)
+  if(userStore[user]) {
+    res.send({hasSameUser: true})
+  }else {
+    userStore[user] = user
+    res.send({hasSameUser: false})
+  }
 })
 
 
