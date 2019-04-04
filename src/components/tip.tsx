@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import style from '../styles/tip.css'
 import { ITip } from '../interfaces'
+import { formatDate } from '../utils'
 
 const ENTER_TIP = '进入了聊天室'
 const EXIT_TIP = '离开了聊天室'
@@ -19,7 +20,7 @@ class Tip extends React.PureComponent<Props> {
         <span>
           {`${enter ? ENTER_TIP : EXIT_TIP}`}
         </span>
-        <span>{time}</span>
+        <span>{formatDate(time)}</span>
         
       </div>
     )

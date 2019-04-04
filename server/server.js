@@ -17,7 +17,12 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     if(socket.user) {
       console.log(`${socket.user.name} has disconnected`)
-      socket.broadcast.emit(EXIT_ROOM, socket.user)
+      socket.broadcast.emit(EXIT_ROOM, {
+        name: socket.user.name,
+        time: new Date(),
+        enter: false,
+      })
+      console.log(`============ ${socket.user.name} exited room ==============`)
     }else {
       console.log(`an user has disconnected`)
     }
@@ -26,7 +31,11 @@ io.on('connection', function(socket) {
   // 监听enterroom 事件
   socket.on(ENTER_ROOM, function(user) {
     socket.user = user
-    socket.broadcast.emit(ENTER_ROOM, user)
+    socket.broadcast.emit(ENTER_ROOM, {
+      name: socket.user.name,
+      time: new Date(),
+      enter: true,
+    })
     console.log(`============ ${user.name} entered room ==============`)
   })
 

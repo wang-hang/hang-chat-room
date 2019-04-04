@@ -18,7 +18,7 @@ interface ITip {
 interface Complex { // 消息或者提示
   type: 'tip' | 'msg';
   data: ITip | Msg;
-  isSelf: boolean
+  isSelf?: boolean
 }
 
 export {

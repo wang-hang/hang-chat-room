@@ -58,8 +58,16 @@ class App extends React.Component<any, State> {
   }
   
   private onReceiveTip = () => {
-    receiveTip().then((data) => {
+    receiveTip(data => {
       console.log(data)
+      const { complex } = this.state
+      const tipData: Complex = {
+        type: 'tip',
+        data,
+      }
+      this.setState({
+        complex: [...complex, tipData]
+      })
     })
   }
 
