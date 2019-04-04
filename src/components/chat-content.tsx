@@ -2,11 +2,16 @@
 
 import * as React from 'react';
 
+import style from '../styles/chat-content.css'
 
-class Record extends React.PureComponent {
+interface Props {
+  content: string
+}
+
+class Record extends React.PureComponent<Props> {
  public render() {
     return (
-      <div>record</div>
+      <div className={style.chat_content} >{this.props.content}</div>
     )
   }
 }

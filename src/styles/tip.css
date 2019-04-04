@@ -1,0 +1,7 @@
+.tip {
+  font-size: 12px;
+  color: #000;
+}
+.tip > .name {
+  color: #409EFF;
+}

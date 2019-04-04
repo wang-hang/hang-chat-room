@@ -1,0 +1,41 @@
+.guide {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.9);
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity .3s;
+  color: #fff;
+  top: 0;
+}
+
+.hidden {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.input {
+  background-color: rgba(0,0,0,0);
+  border:none;
+  width: 60vw;
+  height: 50px;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  color: #fff;
+  text-align: center;
+  font-size: 25px;
+}
+.input:focus {
+  outline: none;
+}

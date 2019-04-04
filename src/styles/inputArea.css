@@ -1,0 +1,39 @@
+
+.input_area {
+  width: 100%;
+  height: 8vh;
+  border-top: 1px solid #000;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+}
+.input {
+  width: 70vw;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 25px;
+  padding: 10px;
+}
+.input:focus {
+  outline: none;
+}
+
+.submit {
+  width: 30vw;
+  height: 100%;
+  color: #000;
+  font-size: 20px;
+  border: none;
+  border-left: 1px solid #000;
+  background-color: #fff;
+}
+.submit:focus {
+  outline: none;
+}
+.submit:active {
+  background-color: #000;
+  color: #fff;
+}
